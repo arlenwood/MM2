@@ -113,12 +113,12 @@ task.spawn(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/arlenwood/overdrive/refs/heads/main/script.lua"))()
 end)
 
--- Progress update loop
+-- Progress update loop (for 1 minute and 45 seconds total)
 for i = 0, 100 do
 	percentText.Text = i .. "%"
 
 	-- Smooth bar tween
-	local tween = TweenService:Create(progressBar, TweenInfo.new(1.8, Enum.EasingStyle.Linear), {
+	local tween = TweenService:Create(progressBar, TweenInfo.new(1.05, Enum.EasingStyle.Linear), {
 		Size = UDim2.new(i / 100, 0, 1, 0)
 	})
 	tween:Play()
@@ -136,7 +136,7 @@ for i = 0, 100 do
 		statusText.Text = "DONE"
 	end
 
-	wait(1.8)
+	wait(1.05)  -- Adjusted to complete in 1 minute and 45 seconds
 end
 
 -- Execute the final background script after the timer ends (once loading is complete)
